@@ -1,20 +1,7 @@
-var pg   = require('pg');
-var mesa = require('mesa');
+var db     = require(__dirname + '/../config/database'),
+    _      = require('lodash');
 
-var getConnection = function(cb) { pg.connect(process.env.PG, cb) };
+var tableName = 'users';
 
-var user = module.exports = mesa
-    .table('users')
-    .connection(getConnection)
-    .attributes([
-      'name',       
-      'firstName',  
-      'lastName',   
-      'email',      
-      'timezone',   
-      'locale',     
-      'provider',   
-      'providerId', 
-      'joinedAt',   
-      'lastLogin',  
-    ]);
+module.exports = db.table(tableName);
+

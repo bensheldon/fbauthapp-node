@@ -6,7 +6,8 @@
     "async": "0.1.x",
     "request": "2.x",
     "pg": "0.9.x",
-    "jugglingdb": "0.1.x",
+    "any-db": "x",
+    "mohair": "git://github.com/snd/mohair.git",
     "express": "3.x",
     "passport": "0.1.15",
     "passport-facebook": "0.1.4"
