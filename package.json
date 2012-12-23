@@ -1,13 +1,12 @@
 {
-  "name": "dayoftheshirt",
+  "name": "application-name",
   "version": "0.0.1",
   "dependencies": {
     "lodash": "~0.6.1",
     "async": "0.1.x",
     "request": "2.x",
     "pg": "0.9.x",
-    "any-db": "x",
-    "mohair": "git://github.com/snd/mohair.git",
+    "sequelize": "~1.6.0"
     "express": "3.x",
     "passport": "0.1.15",
     "passport-facebook": "0.1.4"
