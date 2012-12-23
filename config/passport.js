@@ -1,10 +1,9 @@
 var BASE_URL = process.env.URL || 'http://localhost:3000';
 
 var passport = require('passport'), 
-    FacebookStrategy = require('passport-facebook').Strategy
-;
+    FacebookStrategy = require('passport-facebook').Strategy;
 
-var User = require('../models/user');
+var User = require('../config/database').models.User;
 
 passport.use(new FacebookStrategy({
     clientID: process.env.FB_APP.split(":")[0],
@@ -22,22 +21,20 @@ passport.use(new FacebookStrategy({
       locale:      profile._json.locale,
       provider:    "facebook",
       provider_id: profile.id,
+      access_token: accessToken,
       last_login: new Date()
     };
         
-    User.select().where({ provider: "facebook", provider_id: profile.id }).query(function(err, user) {
-      console.log(err, user);
+    User.find({ where: { provider: 'facebook', provider_id: profile.id } }).complete(function(err, user) {
       if (user) {
-        user.updateAttributes(protoUser, function(err) {
+        user.updateAttributes(protoUser).complete(function(err, user) {
           return done(null, user);
         })
       }
       else {
-        
-        var user = new User(protoUser);
-        user.save(function(err) {
-          console.log(user);
-          return done(null, user);
+        protoUser.joined_at = new Date();
+        User.create(protoUser).complete(function(err, user) {
+          return done(err, user);
         });
       }   
     });
